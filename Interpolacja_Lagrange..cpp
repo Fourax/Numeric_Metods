@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include<limits>
+#include <limits>
 #include "matplotlibcpp.h"
 
 namespace plt = matplotlibcpp;
@@ -23,17 +23,27 @@ double lagrangeInterpolation(const std::vector<std::pair<double, double>>& point
 
 int main() {
    
-    std::vector<std::pair<double, double>> points = { {0, 1}, {1, 3}, {2, 2}, {3, 4} };
+    std::vector<std::pair<double, double>> points = { {-2, 9}, {-1, 4}, {1, 0}, {3, 4}, {4, 9}, {5, 16}, {7, 20}, {11, 5} };
 
-    // Dane do rysowania
+
+    
     std::vector<double> xs, ys;
-    for (double x = 0; x <= 3; x += 0.1) {
+    for (double x = -2; x <= 11; x += 0.1) {
         xs.push_back(x);
         ys.push_back(lagrangeInterpolation(points, x));
     }
 
-    // Rysowanie wykresu
     plt::plot(xs, ys);
+
+    
+    std::vector<double> px, py;
+    for (const auto& p : points) {
+        px.push_back(p.first);
+        py.push_back(p.second);
+    }
+    plt::scatter(px, py, 10.0, { {"color", "red"} });
+
     plt::show();
+
 }
 

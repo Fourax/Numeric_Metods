@@ -46,27 +46,27 @@ std::vector<std::vector<double>> inverseMatrix(const std::vector<std::vector<dou
     std::vector<std::vector<double>> result(n, std::vector<double>(n));
     std::vector<std::vector<double>> copy = matrix;
 
-    // Inicjalizacja macierzy wynikowej jako macierzy jednostkowej
+    
     for (int i = 0; i < n; ++i) {
         result[i][i] = 1.0;
     }
 
-    // Przetwarzanie macierzy
+    
     for (int i = 0; i < n; ++i) {
-        // Ustalanie elementu g³ównego
+       
         double pivot = copy[i][i];
         if (pivot == 0.0) {
-            // Macierz jest osobliwa i nie mo¿e byæ odwrócona
-            throw std::runtime_error("Matrix is singular and cannot be inverted.");
+            
+            throw std::runtime_error("Macierz jest osobliwa i nie moze byc odwrocona");
         }
 
-        // Dzielenie wiersza przez element g³ówny
+        
         for (int j = 0; j < n; ++j) {
             copy[i][j] /= pivot;
             result[i][j] /= pivot;
         }
 
-        // Eliminacja Gaussa
+        
         for (int k = 0; k < n; ++k) {
             if (k != i) {
                 double factor = copy[k][i];
@@ -107,10 +107,10 @@ std::vector<double> polynomialRegression(const std::vector<double>& x, const std
 }
 
 int main() {
-    // Przyk³adowe dane
-    std::vector<double> x = { 1, 2, 3, 4, 5 };  // x-values
-    std::vector<double> y = { 2, 4, 6, 8, 10 }; // y-values
-    int degree = 2; // Stopieñ wielomianu
+   
+    std::vector<double> x = { 1, 2, 3, 4, 5 };  
+    std::vector<double> y = { 2, 4, 6, 8, 10 }; 
+    int degree = 2; 
 
     std::vector<double> coeffs = polynomialRegression(x, y, degree);
 
@@ -119,7 +119,7 @@ int main() {
         std::cout << coeff << " ";
     }
     std::cout << std::endl;
-    // Generowanie punktów na wykresie
+    
     std::vector<double> x_vals, y_vals;
     for (double x_val = 0; x_val < 10; x_val += 0.1) {
         double y_val = 0;
@@ -130,11 +130,10 @@ int main() {
         y_vals.push_back(y_val);
     }
 
-    
+
     plt::scatter(x, y);
     plt::plot(x_vals, y_vals);
     plt::show();
 
     return 0;
 }
-

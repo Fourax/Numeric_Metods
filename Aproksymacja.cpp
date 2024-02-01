@@ -33,29 +33,29 @@ Matrix multiply(const Matrix& A, const Matrix& B) {
 Matrix inverse(const Matrix& A) {
     size_t n = A.size();
     Matrix result(n, std::vector<double>(n));
-    Matrix B = A; // Kopia macierzy A
+    Matrix B = A;
 
-    // Inicjalizacja macierzy wynikowej jako macierzy jednostkowej
+    
     for (size_t i = 0; i < n; ++i) {
         result[i][i] = 1.0;
     }
 
-    // Przetwarzanie macierzy
+   
     for (size_t i = 0; i < n; ++i) {
-        // Ustalanie elementu g³ównego
+        
         double pivot = B[i][i];
         if (pivot == 0) {
             std::cerr << "Macierz jest osobliwa." << std::endl;
             return Matrix();
         }
 
-        // Dzielenie wiersza przez element g³ówny
+        
         for (size_t j = 0; j < n; ++j) {
             B[i][j] /= pivot;
             result[i][j] /= pivot;
         }
 
-        // Eliminacja Gaussa
+       
         for (size_t k = 0; k < n; ++k) {
             if (k != i) {
                 double factor = B[k][i];
@@ -79,7 +79,7 @@ int main() {
     Matrix X(n, std::vector<double>(2)), Y(n, std::vector<double>(1));
     for (size_t i = 0; i < n; ++i) {
         std::cout << "Podaj x[" << i << "], y[" << i << "]: ";
-        std::cin >> X[i][1] >> Y[i][0]; // Zak³adamy, ¿e X[i][0] to 1
+        std::cin >> X[i][1] >> Y[i][0]; 
         X[i][0] = 1;
     }
 
@@ -93,12 +93,12 @@ int main() {
 
  
 
-    // Przygotowanie danych do wykresu
+    
     std::vector<double> x_plot, y_plot;
-    double p0 = P[0][0]; // Wspó³czynnik p0 z macierzy P
-    double p1 = P[1][0]; // Wspó³czynnik p1 z macierzy P
+    double p0 = P[0][0]; 
+    double p1 = P[1][0];
 
-    // Zak³adamy, ¿e pierwsza kolumna macierzy X to jedynki, a druga kolumna to w³aœciwe wartoœci x
+    
     std::vector<double> x_values(n);
     for (int i = 0; i < n; ++i) {
         x_values[i] = X[i][1];
@@ -112,12 +112,12 @@ int main() {
         y_plot.push_back(p0 + p1 * xi);
     }
 
-    // Rysowanie wykresu
+    
     std::vector<double> y_values;
     for (const auto& row : Y) {
-        y_values.push_back(row[0]); // Przekszta³cenie macierzy Y do wektora
+        y_values.push_back(row[0]); 
     }
-    plt::scatter(x_values, y_values, 10.0); // U¿ywanie y_values zamiast Y
+    plt::scatter(x_values, y_values, 10.0, { {"color", "red"} });
     plt::plot(x_plot, y_plot);
     plt::title("Aproksymacja Liniowa");
     plt::xlabel("x");
